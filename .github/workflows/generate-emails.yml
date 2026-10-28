@@ -27,21 +27,35 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python generate.py
         env:
+          # Google Sheet
           SHEET_ID: ${{ secrets.SHEET_ID }}
           GOOGLE_SA: ${{ secrets.GOOGLE_SA }}
-          GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          YOUTUBE_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-          ZEROBOUNCE_KEY: ${{ secrets.ZEROBOUNCE_API_KEY }}
+          # Keys: BOTH spellings are passed on, whichever you created in GitHub. A missing one is just empty.
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_KEY: ${{ secrets.GROQ_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          ZEROBOUNCE_KEY: ${{ secrets.ZEROBOUNCE_KEY }}
+          ZEROBOUNCE_API_KEY: ${{ secrets.ZEROBOUNCE_API_KEY }}
+          # Models (all optional: if a model is retired the script finds a working one by itself)
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
-          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          GEMINI_FALLBACK_MODELS: ${{ vars.GEMINI_FALLBACK_MODELS }}
+          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+          # Tabs and limits
           MASTER_TAB: ${{ vars.MASTER_TAB }}
           OUTPUT_TAB: ${{ vars.OUTPUT_TAB }}
+          LOG_TAB: ${{ vars.LOG_TAB }}
           RUN_LIMIT: ${{ inputs.limit || vars.RUN_LIMIT }}
+          MAX_RUN_MIN: ${{ vars.MAX_RUN_MIN }}
           WRITE_PAUSE: ${{ vars.WRITE_PAUSE }}
+          # Switches
           INCLUDE_OPTOUT: ${{ vars.INCLUDE_OPTOUT }}
           ALLOW_RISKY: ${{ vars.ALLOW_RISKY }}
           ALLOW_ROLE: ${{ vars.ALLOW_ROLE }}
+          VERIFY_MX: ${{ vars.VERIFY_MX }}
           DRY_RUN: ${{ vars.DRY_RUN }}
