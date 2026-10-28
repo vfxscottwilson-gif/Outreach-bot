@@ -1,0 +1,47 @@
+name: generate-emails
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "How many new leads to write this run (20-30 is a good number)"
+        required: false
+        default: "25"
+  # To also run by itself every day, delete the # at the start of the next 2 lines:
+  # schedule:
+  #   - cron: "0 4 * * *"
+permissions:
+  contents: read
+concurrency:
+  group: generate
+  cancel-in-progress: false
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python generate.py
+        env:
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GOOGLE_SA: ${{ secrets.GOOGLE_SA }}
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
+          ZEROBOUNCE_KEY: ${{ secrets.ZEROBOUNCE_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          MASTER_TAB: ${{ vars.MASTER_TAB }}
+          OUTPUT_TAB: ${{ vars.OUTPUT_TAB }}
+          RUN_LIMIT: ${{ inputs.limit || vars.RUN_LIMIT }}
+          WRITE_PAUSE: ${{ vars.WRITE_PAUSE }}
+          INCLUDE_OPTOUT: ${{ vars.INCLUDE_OPTOUT }}
+          ALLOW_RISKY: ${{ vars.ALLOW_RISKY }}
+          ALLOW_ROLE: ${{ vars.ALLOW_ROLE }}
+          DRY_RUN: ${{ vars.DRY_RUN }}
