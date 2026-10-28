@@ -29,11 +29,11 @@ jobs:
         env:
           SHEET_ID: ${{ secrets.SHEET_ID }}
           GOOGLE_SA: ${{ secrets.GOOGLE_SA }}
-          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
-          ZEROBOUNCE_KEY: ${{ secrets.ZEROBOUNCE_KEY }}
+          YOUTUBE_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          ZEROBOUNCE_KEY: ${{ secrets.ZEROBOUNCE_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
