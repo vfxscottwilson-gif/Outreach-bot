@@ -6,9 +6,10 @@ on:
         description: "How many new leads to write this run (20-30 is a good number)"
         required: false
         default: "25"
-  # To also run by itself every day, delete the # at the start of the next 2 lines:
-  # schedule:
-  #   - cron: "0 4 * * *"
+  # Runs by itself every day at 09:00 UTC (= 14:00 Pakistan time). Change the hour if you like.
+  # This is after Gemini's free daily quota resets, so each day starts with fresh credits.
+  schedule:
+    - cron: "0 9 * * *"
 permissions:
   contents: read
 concurrency:
